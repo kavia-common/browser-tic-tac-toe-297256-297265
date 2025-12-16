@@ -1,42 +1,42 @@
-/* CSS Variables for Theme Management (Dark/Black base with Blue accents) */
+/* CSS Variables for Theme Management (Dark base with Blue accents) */
 :root {
-  /* Blue accents */
+  /* Primary blue palette */
   --color-primary: #3b82f6;   /* vivid blue for primary actions */
-  --color-success: #60a5fa;   /* softer blue for success/secondary accents */
-  --color-secondary: #93c5fd; /* light blue for subtle UI elements */
+  --color-secondary: #60a5fa; /* lighter blue secondary/accent */
+  --color-success: #38bdf8;   /* complementary cyan for success/affirmative */
   --color-error: #ef4444;     /* accessible error red */
 
-  /* Dark surfaces and text (keep readable on dark) */
+  /* Dark surfaces and text */
   --bg-primary: #0b0b0b;      /* body/app base */
-  --bg-secondary: #111111;    /* app header background */
-  --surface: #1a1a1a;         /* panels/cards */
-  --surface-strong: #222222;  /* stronger surface when needed */
-  --text-primary: #f5f9ff;    /* near-white with slight blue tint */
-  --text-secondary: #bfdbfe;  /* subtle blue for secondary text */
+  --bg-secondary: #0f1115;    /* header/hero */
+  --surface: #15171c;         /* panels/cards */
+  --surface-strong: #1b1e24;  /* deeper surface */
+  --text-primary: #f8fbff;    /* near-white with slight blue tint */
+  --text-secondary: #c7ddff;  /* subtle blue for secondary text */
 
   /* Borders and effects */
-  --border-color: #2a2a2a;    /* visible on dark */
-  --ring: 0 0 0 3px rgba(59, 130, 246, 0.45); /* blue focus ring */
+  --border-color: rgba(255,255,255,0.12);  /* readable on dark */
+  --ring: 0 0 0 3px rgba(59,130,246,0.55); /* accessible blue focus ring */
 
   /* Buttons */
   --button-bg: var(--color-primary);
   --button-text: #ffffff;
 }
 
-/* Keep same palette when [data-theme="dark"], with slightly deeper accents */
+/* Keep same palette in explicit dark mode with slightly deeper accents */
 [data-theme="dark"] {
-  --bg-primary: #0b0b0b;
-  --bg-secondary: #0e0e0e;
-  --surface: #151515;
-  --surface-strong: #1e1e1e;
-  --text-primary: #f5f9ff;
-  --text-secondary: #dbeafe;
-  --border-color: #2a2a2a;
-  --button-bg: #2563eb;  /* deeper blue for better contrast on dark */
+  --bg-primary: #0a0b0e;
+  --bg-secondary: #0c0e12;
+  --surface: #121419;
+  --surface-strong: #191c22;
+  --text-primary: #f8fbff;
+  --text-secondary: #d6e6ff;
+  --border-color: rgba(255,255,255,0.14);
+  --button-bg: #2563eb; /* deeper blue for contrast */
   --button-text: #ffffff;
 }
 
-/* Ensure the page uses the dark base background and text */
+/* Base page styling: dark background and readable text */
 html, body {
   background-color: var(--bg-primary);
   color: var(--text-primary);
@@ -44,7 +44,10 @@ html, body {
 
 .App {
   min-height: 100vh;
-  background: linear-gradient(180deg, rgba(11,11,11,1), rgba(17,17,17,1));
+  background:
+    radial-gradient(1200px 600px at 80% -10%, rgba(59,130,246,0.10), transparent 60%),
+    radial-gradient(1000px 500px at 10% 110%, rgba(96,165,250,0.08), transparent 60%),
+    linear-gradient(180deg, rgba(11,13,17,1), rgba(12,14,18,1));
   color: var(--text-primary);
   transition: background-color 0.3s ease, color 0.3s ease;
 }
@@ -52,9 +55,7 @@ html, body {
 /* Center the layout vertically and horizontally */
 .app-header {
   min-height: 100vh;
-  background: radial-gradient(1200px 600px at 80% -10%, rgba(59,130,246,0.10), transparent 60%),
-              radial-gradient(1000px 500px at 10% 110%, rgba(96,165,250,0.08), transparent 60%),
-              var(--bg-secondary);
+  background: var(--bg-secondary);
   display: grid;
   place-items: center;
   transition: background-color 0.3s ease, color 0.3s ease;
@@ -62,14 +63,15 @@ html, body {
   padding: 32px 16px;
 }
 
+/* Theme toggle button */
 .theme-toggle {
   position: absolute;
   top: 20px;
   right: 20px;
   background: var(--button-bg);
   color: var(--button-text);
-  border: 1px solid rgba(255,255,255,0.08);
-  border-radius: 10px; /* keep square-ish rounded corners */
+  border: 1px solid rgba(255,255,255,0.10);
+  border-radius: 10px; /* square-ish rounded corners */
   padding: 10px 16px;
   font-size: 14px;
   font-weight: 700;
@@ -81,10 +83,10 @@ html, body {
 
 .theme-toggle:hover {
   transform: translateY(-2px);
-  filter: brightness(1.02);
-  box-shadow: 0 10px 28px rgba(59,130,246,0.28), 0 10px 28px rgba(0,0,0,0.45);
-  border-color: rgba(255,255,255,0.16);
-  background: linear-gradient(180deg, #3b82f6, #2563eb);
+  filter: brightness(1.03);
+  box-shadow: 0 10px 28px rgba(59,130,246,0.30), 0 10px 28px rgba(0,0,0,0.45);
+  border-color: rgba(255,255,255,0.18);
+  background: linear-gradient(180deg, #3b82f6, #1d4ed8);
 }
 
 .theme-toggle:active {
@@ -96,6 +98,7 @@ html, body {
   box-shadow: var(--ring);
 }
 
+/* Game container */
 .game-container {
   background: var(--surface);
   border: 1px solid var(--border-color);
@@ -103,7 +106,7 @@ html, body {
   padding: 24px;
   width: 100%;
   max-width: 420px;
-  box-shadow: 0 12px 40px rgba(236,72,153,0.12), 0 12px 40px rgba(0,0,0,0.55);
+  box-shadow: 0 12px 40px rgba(2, 6, 23, 0.65);
 }
 
 .game-title {
@@ -133,7 +136,7 @@ html, body {
 .square {
   aspect-ratio: 1 / 1; /* ensures perfect square responsively */
   width: 100%;
-  background: #141414; /* slightly lifted from bg-primary for depth */
+  background: #121318; /* slightly lifted from bg for depth */
   border: 1px solid var(--border-color);
   border-radius: 12px;
   font-size: clamp(32px, 10vw, 48px);
@@ -153,14 +156,14 @@ html, body {
 /* Hover and active: ensure visible on dark */
 .square:hover:not(:disabled) {
   transform: translateY(-1px);
-  background: #1c1c1c;
+  background: #171922;
   border-color: var(--color-primary); /* blue accent border */
-  box-shadow: 0 8px 18px rgba(59,130,246,0.18), 0 8px 18px rgba(0,0,0,0.55);
+  box-shadow: 0 8px 18px rgba(59,130,246,0.22), 0 8px 18px rgba(0,0,0,0.55);
 }
 
 .square:active:not(:disabled) {
   transform: translateY(0);
-  background: #202020;
+  background: #1a1d26;
 }
 
 /* Maintain accessible focus outline on dark */
@@ -175,11 +178,14 @@ html, body {
   transform: none;
 }
 
-/* Winning highlight: visible on dark with pink glow */
+/* Winning highlight: blue tone with sufficient contrast */
 .square.win {
-  background: linear-gradient(180deg, rgba(59,130,246,0.16), rgba(32,32,32,0.9));
-  border-color: rgba(59,130,246,0.85);
-  box-shadow: 0 0 0 1px rgba(59,130,246,0.6), 0 12px 28px rgba(59,130,246,0.28), inset 0 1px 0 rgba(255,255,255,0.04);
+  background: linear-gradient(180deg, rgba(59,130,246,0.16), rgba(26,29,38,0.95));
+  border-color: rgba(59,130,246,0.9);
+  box-shadow:
+    0 0 0 1px rgba(59,130,246,0.65),
+    0 12px 28px rgba(59,130,246,0.28),
+    inset 0 1px 0 rgba(255,255,255,0.04);
 }
 
 /* Controls */
@@ -189,31 +195,33 @@ html, body {
   justify-content: center;
 }
 
+/* Buttons */
 .btn {
   background: var(--button-bg);
   color: var(--button-text);
-  border: 1px solid rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.10);
   border-radius: 10px;
   padding: 10px 16px;
   font-size: 14px;
   font-weight: 700;
   cursor: pointer;
   transition: transform 0.15s ease, box-shadow 0.2s ease, filter 0.2s ease, border-color 0.2s ease, background 0.2s ease;
-  box-shadow: 0 4px 16px rgba(236,72,153,0.22), 0 4px 16px rgba(0,0,0,0.35);
+  box-shadow: 0 4px 16px rgba(30,64,175,0.32), 0 4px 16px rgba(0,0,0,0.35);
 }
 
 .btn:hover {
-  filter: brightness(1.02);
+  filter: brightness(1.03);
   transform: translateY(-1px);
-  box-shadow: 0 12px 28px rgba(59,130,246,0.28), 0 12px 28px rgba(0,0,0,0.45);
-  border-color: rgba(255,255,255,0.16);
-  background: linear-gradient(180deg, var(--color-primary), #2563eb);
+  box-shadow: 0 12px 28px rgba(59,130,246,0.32), 0 12px 28px rgba(0,0,0,0.45);
+  border-color: rgba(255,255,255,0.18);
+  background: linear-gradient(180deg, var(--color-primary), #1d4ed8);
 }
 
 .btn:active {
   transform: translateY(0);
 }
 
+/* Ensure focus outlines remain accessible */
 .btn:focus-visible {
   outline: none;
   box-shadow: var(--ring);
