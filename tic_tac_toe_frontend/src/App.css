@@ -1,41 +1,52 @@
-/* CSS Variables for Theme Management */
+/* CSS Variables for Theme Management (Light theme first) */
 :root {
-  /* Light theme colors */
+  /* Theme palette from style guide */
+  --color-primary: #3b82f6;   /* primary */
+  --color-success: #06b6d4;   /* success */
+  --color-secondary: #64748b;
+  --color-error: #EF4444;
+
+  /* Surface and text */
   --bg-primary: #ffffff;
-  --bg-secondary: #f8f9fa;
-  --text-primary: #282c34;
-  --text-secondary: #3b82f6; /* subtle accent */
+  --bg-secondary: #f9fafb;
+  --surface: #ffffff;
+  --text-primary: #111827;
+  --text-secondary: #3b82f6;
+
+  /* Borders and effects */
   --border-color: #e5e7eb;
-  --button-bg: #3b82f6;
+  --ring: 0 0 0 3px rgba(59, 130, 246, 0.3);
+
+  /* Buttons */
+  --button-bg: var(--color-primary);
   --button-text: #ffffff;
 }
 
 [data-theme="dark"] {
-  /* Dark theme colors */
-  --bg-primary: #1a1a1a;
-  --bg-secondary: #282c34;
-  --text-primary: #ffffff;
+  /* Basic dark adaptation while keeping accents */
+  --bg-primary: #0f172a;
+  --bg-secondary: #111827;
+  --surface: #0b1220;
+  --text-primary: #f8fafc;
   --text-secondary: #60a5fa;
-  --border-color: #404040;
+  --border-color: #1f2937;
   --button-bg: #2563eb;
   --button-text: #ffffff;
 }
 
 .App {
-  text-align: center;
-  background-color: var(--bg-primary);
-  color: var(--text-primary);
   min-height: 100vh;
+  background: linear-gradient(180deg, rgba(59,130,246,0.06), rgba(249,250,251,1));
+  color: var(--text-primary);
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
+/* Center the layout vertically and horizontally */
 .app-header {
-  background-color: var(--bg-secondary);
   min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  background-color: var(--bg-secondary);
+  display: grid;
+  place-items: center;
   transition: background-color 0.3s ease;
   position: relative;
   padding: 32px 16px;
@@ -45,116 +56,162 @@
   position: absolute;
   top: 20px;
   right: 20px;
-  background-color: var(--button-bg);
+  background: var(--button-bg);
   color: var(--button-text);
   border: none;
-  border-radius: 8px;
-  padding: 10px 20px;
+  border-radius: 10px;
+  padding: 10px 16px;
   font-size: 14px;
-  font-weight: 600;
+  font-weight: 700;
+  letter-spacing: 0.2px;
   cursor: pointer;
-  transition: all 0.2s ease;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  transition: transform 0.15s ease, box-shadow 0.2s ease, filter 0.2s ease;
+  box-shadow: 0 2px 8px rgba(59,130,246,0.25);
 }
 
 .theme-toggle:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 12px rgba(0,0,0,0.12);
+  filter: brightness(0.98);
+  box-shadow: 0 6px 20px rgba(59,130,246,0.30);
 }
 
 .theme-toggle:active {
   transform: translateY(0);
 }
 
+.theme-toggle:focus-visible {
+  outline: none;
+  box-shadow: var(--ring);
+}
+
 .game-container {
-  background: var(--bg-primary);
+  background: var(--surface);
   border: 1px solid var(--border-color);
-  border-radius: 12px;
+  border-radius: 16px;
   padding: 24px;
-  max-width: 420px;
   width: 100%;
-  box-shadow: 0 6px 20px rgba(0,0,0,0.06);
+  max-width: 420px;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.06);
 }
 
 .game-title {
   margin: 0 0 12px;
   font-size: 28px;
   letter-spacing: 0.3px;
+  color: var(--text-primary);
+  text-align: center;
 }
 
 .status {
   margin: 8px 0 20px;
   font-size: 18px;
   color: var(--text-secondary);
+  text-align: center;
 }
 
+/* Responsive 3x3 grid with large touch targets */
 .board {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 8px;
+  grid-template-columns: repeat(3, minmax(88px, 1fr));
+  gap: 10px;
   margin: 0 auto 16px;
 }
 
+/* Base square styles */
 .square {
-  width: 100px;
-  height: 100px;
-  max-width: 100%;
-  background: var(--bg-secondary);
+  aspect-ratio: 1 / 1; /* ensures perfect square responsively */
+  width: 100%;
+  background: var(--bg-primary);
   border: 1px solid var(--border-color);
-  border-radius: 10px;
-  font-size: 48px;
-  font-weight: 700;
+  border-radius: 12px;
+  font-size: clamp(32px, 10vw, 48px);
+  font-weight: 800;
   color: var(--text-primary);
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: transform 0.06s ease, background 0.2s ease, box-shadow 0.2s ease;
-  box-shadow: inset 0 1px 0 rgba(255,255,255,0.05);
+  transition: transform 0.06s ease, background 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.04);
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+  min-height: 72px; /* accessible touch target */
 }
 
-.square:hover {
+.square:hover:not(:disabled) {
   transform: translateY(-1px);
   background: rgba(59,130,246,0.08);
-  box-shadow: 0 4px 10px rgba(0,0,0,0.06);
+  border-color: rgba(59,130,246,0.35);
+  box-shadow: 0 6px 14px rgba(0,0,0,0.06);
+}
+
+.square:active:not(:disabled) {
+  transform: translateY(0);
+  background: rgba(59,130,246,0.12);
+}
+
+.square:focus-visible {
+  outline: none;
+  box-shadow: var(--ring);
 }
 
 .square:disabled {
   cursor: default;
-  opacity: 0.8;
+  opacity: 0.9;
   transform: none;
 }
 
+/* Subtle winning highlight style (apply with .win class on winning squares) */
+.square.win {
+  background: linear-gradient(180deg, rgba(6,182,212,0.12), rgba(255,255,255,0.9));
+  border-color: rgba(6,182,212,0.6);
+  box-shadow: 0 8px 24px rgba(6,182,212,0.25), inset 0 1px 0 rgba(255,255,255,0.08);
+}
+
+/* Controls */
 .controls {
-  margin-top: 8px;
+  margin-top: 12px;
+  display: flex;
+  justify-content: center;
 }
 
 .btn {
-  background-color: var(--button-bg);
+  background: var(--button-bg);
   color: var(--button-text);
   border: none;
-  border-radius: 8px;
+  border-radius: 10px;
   padding: 10px 16px;
   font-size: 14px;
-  font-weight: 600;
+  font-weight: 700;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: transform 0.15s ease, box-shadow 0.2s ease, filter 0.2s ease;
+  box-shadow: 0 2px 8px rgba(59,130,246,0.25);
 }
 
 .btn:hover {
-  filter: brightness(0.95);
+  filter: brightness(0.98);
   transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(59,130,246,0.30);
 }
 
 .btn:active {
   transform: translateY(0);
 }
 
-/* Responsive */
+.btn:focus-visible {
+  outline: none;
+  box-shadow: var(--ring);
+}
+
+/* Responsive tweaks for small screens */
 @media (max-width: 420px) {
+  .game-container {
+    padding: 20px;
+  }
+  .board {
+    gap: 8px;
+  }
   .square {
-    width: 90px;
-    height: 90px;
-    font-size: 40px;
+    min-height: 64px; /* preserves accessible size */
   }
 }
