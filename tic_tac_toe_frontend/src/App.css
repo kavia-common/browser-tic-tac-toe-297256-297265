@@ -1,4 +1,4 @@
-/* CSS Variables for Theme Management (Dark base with Blue accents) */
+/* CSS Variables for Theme Management (Blue background with accessible contrast) */
 :root {
   /* Primary blue palette */
   --color-primary: #3b82f6;   /* vivid blue for primary actions */
@@ -6,17 +6,17 @@
   --color-success: #38bdf8;   /* complementary cyan for success/affirmative */
   --color-error: #ef4444;     /* accessible error red */
 
-  /* Dark surfaces and text */
-  --bg-primary: #0b0b0b;      /* body/app base */
-  --bg-secondary: #0f1115;    /* header/hero */
-  --surface: #15171c;         /* panels/cards */
-  --surface-strong: #1b1e24;  /* deeper surface */
+  /* Blue background and readable text */
+  --bg-primary: #1e3a8a;      /* deep blue for body/app base */
+  --bg-secondary: #1e40af;    /* slightly lighter blue for header/hero */
+  --surface: rgba(8, 15, 34, 0.55); /* translucent dark overlay for panels/cards for readability on blue */
+  --surface-strong: rgba(6, 12, 28, 0.7);  /* deeper surface */
   --text-primary: #f8fbff;    /* near-white with slight blue tint */
-  --text-secondary: #c7ddff;  /* subtle blue for secondary text */
+  --text-secondary: #dbeafe;  /* light blue-gray for secondary text */
 
   /* Borders and effects */
-  --border-color: rgba(255,255,255,0.12);  /* readable on dark */
-  --ring: 0 0 0 3px rgba(59,130,246,0.55); /* accessible blue focus ring */
+  --border-color: rgba(240,248,255,0.35);  /* lighter border so grid is visible on blue */
+  --ring: 0 0 0 3px rgba(255,255,255,0.65); /* white focus ring for strong contrast on blue */
 
   /* Buttons */
   --button-bg: var(--color-primary);
@@ -25,18 +25,18 @@
 
 /* Keep same palette in explicit dark mode with slightly deeper accents */
 [data-theme="dark"] {
-  --bg-primary: #0a0b0e;
-  --bg-secondary: #0c0e12;
-  --surface: #121419;
-  --surface-strong: #191c22;
+  --bg-primary: #0b4fff;      /* bright accessible blue for dark toggle as well */
+  --bg-secondary: #1e3a8a;
+  --surface: rgba(4, 9, 24, 0.6);
+  --surface-strong: rgba(2, 6, 23, 0.75);
   --text-primary: #f8fbff;
-  --text-secondary: #d6e6ff;
-  --border-color: rgba(255,255,255,0.14);
+  --text-secondary: #e2e8f0;
+  --border-color: rgba(240,248,255,0.40);
   --button-bg: #2563eb; /* deeper blue for contrast */
   --button-text: #ffffff;
 }
 
-/* Base page styling: dark background and readable text */
+/* Base page styling: blue background and readable text */
 html, body {
   background-color: var(--bg-primary);
   color: var(--text-primary);
@@ -45,9 +45,7 @@ html, body {
 .App {
   min-height: 100vh;
   background:
-    radial-gradient(1200px 600px at 80% -10%, rgba(59,130,246,0.10), transparent 60%),
-    radial-gradient(1000px 500px at 10% 110%, rgba(96,165,250,0.08), transparent 60%),
-    linear-gradient(180deg, rgba(11,13,17,1), rgba(12,14,18,1));
+    linear-gradient(180deg, rgba(30,58,138,1), rgba(30,64,175,1)); /* smooth blue gradient */
   color: var(--text-primary);
   transition: background-color 0.3s ease, color 0.3s ease;
 }
@@ -70,7 +68,7 @@ html, body {
   right: 20px;
   background: var(--button-bg);
   color: var(--button-text);
-  border: 1px solid rgba(255,255,255,0.10);
+  border: 1px solid rgba(255,255,255,0.28);
   border-radius: 10px; /* square-ish rounded corners */
   padding: 10px 16px;
   font-size: 14px;
@@ -78,14 +76,14 @@ html, body {
   letter-spacing: 0.2px;
   cursor: pointer;
   transition: transform 0.15s ease, box-shadow 0.2s ease, filter 0.2s ease, border-color 0.2s ease, background 0.2s ease;
-  box-shadow: 0 4px 16px rgba(59,130,246,0.22), 0 4px 16px rgba(0,0,0,0.35);
+  box-shadow: 0 4px 16px rgba(2, 6, 23, 0.25), 0 4px 16px rgba(30,64,175,0.35);
 }
 
 .theme-toggle:hover {
   transform: translateY(-2px);
-  filter: brightness(1.03);
-  box-shadow: 0 10px 28px rgba(59,130,246,0.30), 0 10px 28px rgba(0,0,0,0.45);
-  border-color: rgba(255,255,255,0.18);
+  filter: brightness(1.05);
+  box-shadow: 0 10px 28px rgba(2, 6, 23, 0.3), 0 10px 28px rgba(59,130,246,0.32);
+  border-color: rgba(255,255,255,0.38);
   background: linear-gradient(180deg, #3b82f6, #1d4ed8);
 }
 
@@ -101,12 +99,14 @@ html, body {
 /* Game container */
 .game-container {
   background: var(--surface);
+  backdrop-filter: saturate(120%) blur(4px);
+  -webkit-backdrop-filter: saturate(120%) blur(4px);
   border: 1px solid var(--border-color);
   border-radius: 16px;
   padding: 24px;
   width: 100%;
   max-width: 420px;
-  box-shadow: 0 12px 40px rgba(2, 6, 23, 0.65);
+  box-shadow: 0 12px 40px rgba(2, 6, 23, 0.55);
 }
 
 .game-title {
@@ -136,7 +136,7 @@ html, body {
 .square {
   aspect-ratio: 1 / 1; /* ensures perfect square responsively */
   width: 100%;
-  background: #121318; /* slightly lifted from bg for depth */
+  background: rgba(8, 13, 28, 0.8); /* darker tile for contrast on blue bg */
   border: 1px solid var(--border-color);
   border-radius: 12px;
   font-size: clamp(32px, 10vw, 48px);
@@ -147,26 +147,26 @@ html, body {
   justify-content: center;
   cursor: pointer;
   transition: transform 0.06s ease, background 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
-  box-shadow: inset 0 1px 0 rgba(255,255,255,0.03);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.05);
   -webkit-tap-highlight-color: transparent;
   touch-action: manipulation;
   min-height: 72px; /* accessible touch target */
 }
 
-/* Hover and active: ensure visible on dark */
+/* Hover and active: ensure visible on blue */
 .square:hover:not(:disabled) {
   transform: translateY(-1px);
-  background: #171922;
-  border-color: var(--color-primary); /* blue accent border */
-  box-shadow: 0 8px 18px rgba(59,130,246,0.22), 0 8px 18px rgba(0,0,0,0.55);
+  background: rgba(10, 16, 34, 0.9);
+  border-color: rgba(255,255,255,0.55); /* stays visible on blue */
+  box-shadow: 0 8px 18px rgba(2, 6, 23, 0.45), 0 8px 18px rgba(59,130,246,0.22);
 }
 
 .square:active:not(:disabled) {
   transform: translateY(0);
-  background: #1a1d26;
+  background: rgba(12, 19, 40, 0.95);
 }
 
-/* Maintain accessible focus outline on dark */
+/* Maintain accessible focus outline on blue */
 .square:focus-visible {
   outline: none;
   box-shadow: var(--ring);
@@ -180,12 +180,12 @@ html, body {
 
 /* Winning highlight: blue tone with sufficient contrast */
 .square.win {
-  background: linear-gradient(180deg, rgba(59,130,246,0.16), rgba(26,29,38,0.95));
-  border-color: rgba(59,130,246,0.9);
+  background: linear-gradient(180deg, rgba(59,130,246,0.22), rgba(12,19,40,0.98));
+  border-color: rgba(255,255,255,0.75);
   box-shadow:
-    0 0 0 1px rgba(59,130,246,0.65),
+    0 0 0 1px rgba(255,255,255,0.55),
     0 12px 28px rgba(59,130,246,0.28),
-    inset 0 1px 0 rgba(255,255,255,0.04);
+    inset 0 1px 0 rgba(255,255,255,0.06);
 }
 
 /* Controls */
@@ -199,21 +199,21 @@ html, body {
 .btn {
   background: var(--button-bg);
   color: var(--button-text);
-  border: 1px solid rgba(255,255,255,0.10);
+  border: 1px solid rgba(255,255,255,0.28);
   border-radius: 10px;
   padding: 10px 16px;
   font-size: 14px;
   font-weight: 700;
   cursor: pointer;
   transition: transform 0.15s ease, box-shadow 0.2s ease, filter 0.2s ease, border-color 0.2s ease, background 0.2s ease;
-  box-shadow: 0 4px 16px rgba(30,64,175,0.32), 0 4px 16px rgba(0,0,0,0.35);
+  box-shadow: 0 4px 16px rgba(2,6,23,0.28), 0 4px 16px rgba(30,64,175,0.35);
 }
 
 .btn:hover {
-  filter: brightness(1.03);
+  filter: brightness(1.05);
   transform: translateY(-1px);
-  box-shadow: 0 12px 28px rgba(59,130,246,0.32), 0 12px 28px rgba(0,0,0,0.45);
-  border-color: rgba(255,255,255,0.18);
+  box-shadow: 0 12px 28px rgba(2,6,23,0.38), 0 12px 28px rgba(59,130,246,0.32);
+  border-color: rgba(255,255,255,0.4);
   background: linear-gradient(180deg, var(--color-primary), #1d4ed8);
 }
 
